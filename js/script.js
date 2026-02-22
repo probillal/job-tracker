@@ -1,3 +1,4 @@
+// job data
 const jobs = [
   {
     id: 1,
@@ -82,3 +83,5 @@ const jobs = [
     status: "none",
   },
 ];
+// active current tab
+const currentTab = "all";
