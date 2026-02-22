@@ -63,9 +63,36 @@
     <main>
       <section class="max-w-6xl mx-auto p-6">
         <!-- job header -->
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-8">
           <h2 class="text-xl font-semibold text-[#002C5C]">Available Jobs</h2>
           <p id="tabCount" class="text-[#002C5C]">8 jobs</p>
+        </div>
+        <!-- tabs -->
+        <div class="mb-6 space-x-2">
+          <!-- btn all -->
+          <button
+            onclick="showTab('all')"
+            id="allTab"
+            class="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            All
+          </button>
+          <!-- interview btn -->
+          <button
+            onclick="showTab('interview')"
+            id="interViewTab"
+            class="px-4 py-2 bg-gray-200 rounded"
+          >
+            Interview
+          </button>
+          <!-- rejected btn -->
+          <button
+            onclick="showTab('rejected')"
+            id="rejectedTab"
+            class="px-4 py-2 bg-gray-200 rounded"
+          >
+            Rejected
+          </button>
         </div>
       </section>
     </main>
