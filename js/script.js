@@ -1,5 +1,15 @@
-// job data
-const jobs = [
+// <script>
+
+/* ================================
+   STEP 1: Job Data Array
+   এখানে সব job object রাখা হয়েছে।
+   প্রতিটি job এর একটি status আছে:
+   "none" = Not Applied
+   "interview" = Interview Selected
+   "rejected" = Rejected
+================================ */
+
+var jobs = [
   {
     id: 1,
     company: "Mobile First Corp",
@@ -83,15 +93,37 @@ const jobs = [
     status: "none",
   },
 ];
-// active current tab
-const currentTab = "all";
 
-function renderJob() {
+let currentTab = "all";
+
+function renderJobs() {
   const container = document.getElementById("jobContainer");
+  // remove previous card
   container.innerHTML = "";
-  var filtered = jobs.filter(function (job) {
+
+  const filtered = jobs.filter(function (job) {
     if (currentTab == "all") return true;
     return job.status == currentTab;
   });
-  document.getElementById("tabCount").innerText = filtered.length + "jobs";
+
+  // Tab wise count update
+  document.getElementById("tabCount").innerText = filtered.length + " jobs";
+  // shown no data
+  if (filtered.length == 0) {
+    document.getElementById("noData").classList.remove("hidden");
+  } else {
+    document.getElementById("noData").classList.add("hidden");
+  }
+
+  // create interview, rejected & not applied btn
+  filtered.forEach(function (job) {
+    const statusBadge =
+      job.status == "interview"
+        ? `<button class="bg-green-100 text-green-700 px-2 py-1 text-xs rounded">Interview</button>`
+        : job.status == "rejected"
+          ? `<button class="bg-red-100 text-red-700 px-2 py-1 text-xs rounded">Rejected</button>`
+          : `<button class="bg-gray-200 text-gray-700 px-2 py-1 text-xs rounded">Not Applied</button>`;
+  });
+
+  updateDashboard();
 }
