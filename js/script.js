@@ -85,3 +85,12 @@ const jobs = [
 ];
 // active current tab
 const currentTab = "all";
+
+function renderJob() {
+  const container = document.getElementById("jobContainer");
+  container.innerHTML = "";
+  var filtered = jobs.filter(function (job) {
+    if (currentTab == "all") return true;
+    return job.status == currentTab;
+  });
+}
