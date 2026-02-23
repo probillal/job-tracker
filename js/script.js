@@ -123,7 +123,94 @@ function renderJobs() {
         : job.status == "rejected"
           ? `<button class="bg-red-100 text-red-700 px-2 py-1 text-xs rounded">Rejected</button>`
           : `<button class="bg-gray-200 text-gray-700 px-2 py-1 text-xs rounded">Not Applied</button>`;
+
+    // create card
+    const card = `
+        <div class="bg-white p-5 rounded shadow relative">
+            <button onclick="deleteJob(${job.id})" class="absolute top-3 right-3 text-gray-400 hover:text-red-600"><i class="fa-solid fa-trash-can"></i></button>
+
+            <h3 class="text-lg font-bold text-blue-900">${job.company}</h3>
+            <p class="text-gray-600">${job.position}</p>
+
+            <p class="text-sm text-gray-500 mt-2">
+            ${job.location} - ${job.type} - ${job.salary}
+            </p>
+
+            <div class="mt-2">${statusBadge}</div>
+
+            <p class="text-gray-600 mt-3">${job.description}</p>
+
+            <div class="mt-4 space-x-2">
+                <button onclick="setStatus(${job.id}, 'interview')" 
+                class="px-3 py-1 border border-green-500 text-green-600 rounded">
+                Interview
+                </button>
+
+                <button onclick="setStatus(${job.id}, 'rejected')" 
+                class="px-3 py-1 border border-red-500 text-red-600 rounded">
+                Rejected
+                </button>
+            </div>
+        </div>
+        `;
+    // add to card container
+    container.innerHTML += card;
   });
 
   updateDashboard();
 }
+// toggle interview and reject
+function setStatus(id, status) {
+  jobs.forEach(function (job) {
+    if (job.id == id) {
+      if (job.status == status) {
+        job.status = "none";
+      } else {
+        job.status = status;
+      }
+    }
+  });
+
+  renderJobs();
+}
+// remove job
+function deleteJob(id) {
+  jobs = jobs.filter(function (job) {
+    return job.id != id;
+  });
+
+  renderJobs();
+}
+// update dashboard
+function updateDashboard() {
+  const interview = jobs.filter(function (i) {
+    return i.status == "interview";
+  }).length;
+
+  var rejected = jobs.filter(function (i) {
+    return i.status == "rejected";
+  }).length;
+
+  document.getElementById("interviewCount").innerText = interview;
+  document.getElementById("rejectedCount").innerText = rejected;
+  document.getElementById("totalCount").innerText = interview + rejected;
+}
+// show tab
+function showTab(tab) {
+  currentTab = tab;
+
+  //  reset tab
+  document.getElementById("allTab").className = "px-4 py-2 bg-gray-200 rounded";
+  document.getElementById("interviewTab").className =
+    "px-4 py-2 bg-gray-200 rounded";
+  document.getElementById("rejectedTab").className =
+    "px-4 py-2 bg-gray-200 rounded";
+
+  // active tab
+  document.getElementById(tab + "Tab").className =
+    "px-4 py-2 bg-blue-600 text-white rounded";
+
+  renderJobs();
+}
+
+renderJobs();
