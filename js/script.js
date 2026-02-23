@@ -93,4 +93,5 @@ function renderJob() {
     if (currentTab == "all") return true;
     return job.status == currentTab;
   });
+  document.getElementById("tabCount").innerText = filtered.length + "jobs";
 }
