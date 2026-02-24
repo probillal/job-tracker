@@ -30,6 +30,7 @@
          3. Clean & maintainable code
    
 5. What is the difference between preventDefault() and stopPropagation() methods?
+   
    Ans: preventDefault() - Stop default behavior in a browser.
        stopPropagation() - Stop the event from going up to parent elements.
    
